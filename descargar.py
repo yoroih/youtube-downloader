@@ -1,4 +1,4 @@
-from pytube import YouTube
+from pytube import YouTube, Playlist
 from tkinter import *
 from tkinter.ttk import *
 
@@ -30,6 +30,8 @@ def descargar():
     print("**DESCARGA FINALIZADA**\n{}\n{}".format(titulo, time_format))
     print("***********************\n")
 
+def descargarplaylist():
+    pass
 
 #https://www.youtube.com/watch?v=JDcvtKsSfxg
 
@@ -64,11 +66,14 @@ info = Label(ventana, text="VIDEO: ")
 info.grid(row=1, column=0)
 
 #INSTRUCCIONES
-instrucciones = Label(ventana, text="Descargar Videos")
+instrucciones = Label(ventana, text="Ingrese Link")
 instrucciones.grid(row=0, column=2)
 
 #BOTON
 boton = Button(ventana, text="DESCARGAR", command=descargar)
 boton.grid(row=2, column=2)
+
+botonplaylist = Button(ventana, text="DESCARGAR PLAYLIST", command=descargarplaylist)
+botonplaylist.grid(row=4, column=2)
 
 ventana.mainloop()
