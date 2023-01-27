@@ -53,9 +53,9 @@ def descargarplaylist():
         #nombre en tkinter
         objetovideo = YouTube(url)
         nombrevideo = objetovideo.title
-        formatonombrevideo = "- Video {} Descargado".format(nombrevideo)
+        formatonombrevideo = "Video {} Descargado".format(nombrevideo)
         #nombre en consola
-        print(formatonombrevideo)
+        print("-", formatonombrevideo)
         #ubicacion de nombre en tkinter
         nombrevideolabel = Label(ventana, text=formatonombrevideo)
         nombrevideolabel.grid(row=4, column=2)
@@ -65,9 +65,9 @@ def descargarplaylist():
         horasvideop = duracionvideo // 3600
         minutosvideop = (duracionvideo % 3600) // 60
         segundosvideop = duracionvideo % 60
-        duracionvideo_time_format = "- DURACIÓN: {:.0f}h:{:.0f}m:{}s".format(horasvideop, minutosvideop, segundosvideop)
+        duracionvideo_time_format = "DURACIÓN: {:.0f}h:{:.0f}m:{}s".format(horasvideop, minutosvideop, segundosvideop)
         #duracion en consola
-        print(duracionvideo_time_format,"\n************")
+        print("-", duracionvideo_time_format,"\n************")
         #ubicación de duracion en tkinter
         duracionvideolabel = Label(ventana, text=duracionvideo_time_format)
         duracionvideolabel.grid(row=5, column=2)
