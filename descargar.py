@@ -5,7 +5,8 @@ from tkinter.ttk import *
 def descargar():
     link = videos.get()
     video = YouTube(link)
-    
+    print(video)
+
     #TITULO
     titulo1 = video.title
     titulo = "NOMBRE: {}".format(titulo1) 
@@ -26,7 +27,7 @@ def descargar():
     
     # Descargar el archivo
     descarga = video.streams.get_highest_resolution()
-    #descarga.download()
+    descarga.download()
     print("**DESCARGA FINALIZADA**\n{}\n{}".format(titulo, time_format))
     print("***********************\n")
 
@@ -40,14 +41,38 @@ def descargarplaylist():
     labelnombreplaylist = Label(ventana, text=nombreplaylist)
     labelnombreplaylist.grid(row=4, column=2) 
 
+    #UPDATE VENTANA PARA VER EL NOMBRE DE LA PLAYLIS
     ventana.update()
 
-    #obtener nombres de videos por terminal
-    for listavideos in videoplaylist.video_urls:
-         print(listavideos)
+    #USAMOS FUNCIÓN ZIP PARA JUNTAR AMBOS BUCLES
+    #EL OBJETIVO ES PODER VER EL NOMBRE DEL VIDEO ANTES DE SU DESCARGA    
+    for url, video in zip(videoplaylist.video_urls, videoplaylist.videos):
+        #Descargar video
+        video.streams.get_highest_resolution().download()
 
-    for descargarvideos in videoplaylist.videos:
-        descargarvideos.streams.get_highest_resolution().download()
+        #nombre en tkinter
+        objetovideo = YouTube(url)
+        nombrevideo = objetovideo.title
+        formatonombrevideo = "Video {} Descargado".format(nombrevideo)
+        #nombre en consola
+        print("-", formatonombrevideo)
+        #ubicacion de nombre en tkinter
+        nombrevideolabel = Label(ventana, text=formatonombrevideo)
+        nombrevideolabel.grid(row=4, column=2)
+
+        #duracion en tkinter
+        duracionvideo = objetovideo.length
+        horasvideop = duracionvideo // 3600
+        minutosvideop = (duracionvideo % 3600) // 60
+        segundosvideop = duracionvideo % 60
+        duracionvideo_time_format = "DURACIÓN: {:.0f}h:{:.0f}m:{}s".format(horasvideop, minutosvideop, segundosvideop)
+        #duracion en consola
+        print("-", duracionvideo_time_format,"\n************")
+        #ubicación de duracion en tkinter
+        duracionvideolabel = Label(ventana, text=duracionvideo_time_format)
+        duracionvideolabel.grid(row=5, column=2)
+
+        ventana.update()
 
 #https://www.youtube.com/watch?v=JDcvtKsSfxg
 
