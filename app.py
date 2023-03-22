@@ -1,11 +1,12 @@
+from tkinter import ttk
 from pytube import YouTube, Playlist
+from pytube.cli import on_progress
 from tkinter import *
 from tkinter.ttk import *
 
 def descargar():
     link = videos.get()
-    video = YouTube(link)
-    print(video)
+    video = YouTube(link, on_progress_callback=on_progress)
 
     #TITULO
     titulo1 = video.title
@@ -22,15 +23,24 @@ def descargar():
     durven = Label(ventana, text=time_format)
     durven.grid(row=5, column=2)
 
+    #TAMAÑO
+    size1 = video.streams.get_highest_resolution().filesize_mb
+    size = "TAMAÑO: {:.1f} Mb".format(size1)
+
     # Crear la barra de progreso
+    progreso_barra = ttk.Progressbar(ventana, orient='horizontal', length=200, mode='determinate')
+    progreso_barra.grid(row=7, column=2)
+
     ventana.update()
-    
+
     # Descargar el archivo
     descarga = video.streams.get_highest_resolution()
-    descarga.download()
-    print("**DESCARGA FINALIZADA**\n{}\n{}".format(titulo, time_format))
+    #descarga.download()
+    print("**DESCARGA FINALIZADA**\n{}\n{}\n{}".format(titulo, time_format, size))
     print("***********************\n")
 
+#https://www.youtube.com/watch?v=GXD0ySQFxRQ
+#10 sec vid
 def descargarplaylist():
     linkplaylist = videos.get()
     videoplaylist = Playlist(linkplaylist)
@@ -100,10 +110,6 @@ menubar.add_command(label="Salir", command=ventana.destroy)
 imagen = PhotoImage(file="img/youd.png")
 foto = Label(ventana, image=imagen)
 foto.grid(row=1, column=2)
-
-#barra de descarga
-#progressbar = Progressbar(ventana, length=200, maximum=100, mode="determinate")
-#progressbar.grid(row=4, column=0)
 
 #INFO
 info = Label(ventana, text="INFORMACIÓN: ")
