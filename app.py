@@ -35,7 +35,7 @@ def descargar():
 
     # Descargar el archivo
     descarga = video.streams.get_highest_resolution()
-    #descarga.download()
+    descarga.download()
     print("**DESCARGA FINALIZADA**\n{}\n{}\n{}".format(titulo, time_format, size))
     print("***********************\n")
 
